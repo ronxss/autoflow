@@ -1,0 +1,28 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+*.binlog
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Segredos e ambiente
+.env
+.env.*
+!.env.example
+appsettings.Production.json
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+
+# SO / IDE
+.DS_Store
+.idea/
+.vscode/

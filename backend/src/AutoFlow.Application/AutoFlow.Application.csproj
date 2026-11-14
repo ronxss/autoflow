@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoFlow.Domain\AutoFlow.Domain.csproj" />
+    <ProjectReference Include="..\AutoFlow.Contracts\AutoFlow.Contracts.csproj" />
+  </ItemGroup>
+</Project>
