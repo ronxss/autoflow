@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (.NET) — build e testes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Compilar
+        run: dotnet build backend/AutoFlow.slnx -c Release
+      - name: Testes unitários e de integração
+        run: dotnet test backend/AutoFlow.slnx -c Release --no-build
+
+  admin:
+    name: Painel (React) — build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+
+  mobile:
+    name: App (.NET MAUI) — build Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: 17
+      - name: Instalar workload MAUI (Android)
+        run: dotnet workload install maui-android
+      - name: Compilar para Android
+        run: dotnet build mobile/AutoFlow.Mobile/AutoFlow.Mobile.csproj -f net10.0-android -c Debug
