@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AutoFlow.Mobile.Pages.ChatPage"
+             Title="{Binding Titulo}"
+             Shell.TabBarIsVisible="False">
+    <Grid RowDefinitions="*,Auto">
+
+        <CollectionView x:Name="Lista" ItemsSource="{Binding Mensagens}"
+                        EmptyView="Envie a primeira mensagem para combinar os detalhes.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="12,4">
+                        <Border Padding="12,8" StrokeThickness="0" StrokeShape="RoundRectangle 14"
+                                HorizontalOptions="Start" MaximumWidthRequest="300"
+                                BackgroundColor="{AppThemeBinding Light=#F1F3F5, Dark=#2C2E33}">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding Minha}" Value="True">
+                                    <Setter Property="HorizontalOptions" Value="End" />
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light=#DBE4FF, Dark=#364FC7}" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Texto}" />
+                                <HorizontalStackLayout Spacing="6" HorizontalOptions="End">
+                                    <Label Text="{Binding Hora}" FontSize="11" />
+                                    <Label Text="{Binding Situacao}" FontSize="11" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Padding="12,8" ColumnSpacing="8">
+            <Entry Placeholder="Escreva uma mensagem" Text="{Binding Texto}" MaxLength="2000"
+                   ReturnType="Send" ReturnCommand="{Binding EnviarCommand}" />
+            <Button Grid.Column="1" Text="Enviar" Command="{Binding EnviarCommand}" />
+        </Grid>
+    </Grid>
+</ContentPage>

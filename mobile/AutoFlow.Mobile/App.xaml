@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AutoFlow.Mobile.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primaria">#4C6EF5</Color>
+            <Color x:Key="Perigo">#E03131</Color>
+            <Color x:Key="CartaoClaro">#F1F3F5</Color>
+            <Color x:Key="CartaoEscuro">#2C2E33</Color>
+            <Color x:Key="TextoSuave">#868E96</Color>
+
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primaria}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="16,12" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="BotaoSecundario" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource Primaria}" />
+                <Setter Property="BorderColor" Value="{StaticResource Primaria}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="16,12" />
+            </Style>
+
+            <Style x:Key="Cartao" TargetType="Border">
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light={StaticResource CartaoClaro}, Dark={StaticResource CartaoEscuro}}" />
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+                <Setter Property="Padding" Value="14" />
+            </Style>
+
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="Suave" TargetType="Label">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="TextColor" Value="{StaticResource TextoSuave}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

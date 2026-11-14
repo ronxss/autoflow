@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AutoFlow.Mobile.Pages.InicioPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    <VerticalStackLayout VerticalOptions="Center" Padding="32" Spacing="18">
+        <Label Text="AutoFlow" FontSize="34" FontAttributes="Bold" HorizontalOptions="Center"
+               TextColor="{StaticResource Primaria}" />
+        <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" />
+        <Label Text="{Binding Mensagem}" HorizontalTextAlignment="Center" />
+        <Button Text="Tentar novamente" Command="{Binding IniciarCommand}" IsVisible="{Binding PodeTentarDeNovo}" />
+        <Button Text="Sair da conta" Style="{StaticResource BotaoSecundario}" Command="{Binding SairCommand}"
+                IsVisible="{Binding PodeTentarDeNovo}" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AutoFlow.Mobile.Pages.TrabalhadorDetalhePage"
+             Title="Profissional"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14">
+            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" />
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{Binding Perfil.Nome}" Style="{StaticResource Titulo}" />
+                <Label Text="{Binding Perfil.AreaAtuacao}" FontSize="16" />
+                <HorizontalStackLayout Spacing="6">
+                    <Label Text="{Binding Perfil.AvaliacaoMedia, StringFormat='★ {0:N1}'}" FontAttributes="Bold" />
+                    <Label Text="{Binding Perfil.TotalAvaliacoes, StringFormat='({0} avaliações)'}"
+                           Style="{StaticResource Suave}" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <Label Text="{Binding Perfil.Cidade}" Style="{StaticResource Suave}" />
+                <Label Text="{Binding Perfil.PrecoBaseHora, StringFormat='A partir de R$ {0:N2} por hora'}" />
+            </VerticalStackLayout>
+
+            <Label Text="{Binding Perfil.Descricao}" />
+
+            <Border Style="{StaticResource Cartao}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Horários de atendimento" Style="{StaticResource Subtitulo}" />
+                    <Label Text="{Binding HorariosTexto}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Serviços e preços" Style="{StaticResource Subtitulo}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Servicos}" Spacing="8"
+                                         BindableLayout.EmptyView="Este profissional ainda não cadastrou serviços.">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
+                                    <Label Text="{Binding Nome}" />
+                                    <Label Grid.Column="1" Text="{Binding Preco, StringFormat='R$ {0:N2}'}"
+                                           FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Text="{Binding DuracaoMinutos, StringFormat='Duração estimada: {0} min'}"
+                                           Style="{StaticResource Suave}" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Solicitar serviço" Style="{StaticResource Subtitulo}" />
+            <Picker Title="Escolha o serviço" ItemsSource="{Binding Servicos}" ItemDisplayBinding="{Binding Nome}"
+                    SelectedItem="{Binding ServicoSelecionado}" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                <VerticalStackLayout>
+                    <Label Text="Data" Style="{StaticResource Suave}" />
+                    <DatePicker Date="{Binding Data}" MinimumDate="{Binding DataMinima}" Format="dd/MM/yyyy" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Horário" Style="{StaticResource Suave}" />
+                    <TimePicker Time="{Binding Hora}" Format="HH:mm" />
+                </VerticalStackLayout>
+            </Grid>
+            <Editor Placeholder="Observações para o profissional (opcional)" Text="{Binding Observacoes}"
+                    AutoSize="TextChanges" MaxLength="1000" />
+            <Button Text="Enviar solicitação" Command="{Binding SolicitarCommand}" />
+
+            <Label Text="Avaliações" Style="{StaticResource Subtitulo}" Margin="0,8,0,0" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Avaliacoes}" Spacing="8"
+                                 BindableLayout.EmptyView="Ainda não há avaliações.">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Cartao}">
+                            <VerticalStackLayout Spacing="2">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Text="{Binding ClienteNome}" FontAttributes="Bold" />
+                                    <Label Grid.Column="1" Text="{Binding Nota, StringFormat='★ {0}'}" />
+                                </Grid>
+                                <Label Text="{Binding Comentario}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button Text="Denunciar este profissional" Style="{StaticResource BotaoSecundario}"
+                    Command="{Binding DenunciarCommand}" Margin="0,8,0,0" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

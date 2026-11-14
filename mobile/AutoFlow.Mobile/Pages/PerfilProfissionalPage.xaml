@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AutoFlow.Mobile.ViewModels"
+             x:Class="AutoFlow.Mobile.Pages.PerfilProfissionalPage"
+             Title="Meu perfil profissional">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Border Style="{StaticResource Cartao}">
+                <Label Text="{Binding Situacao}" />
+            </Border>
+            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" />
+
+            <Label Text="Dados profissionais" Style="{StaticResource Subtitulo}" />
+            <Entry Placeholder="Área de atuação (ex.: Eletricista)" Text="{Binding AreaAtuacao}" MaxLength="100" />
+            <Editor Placeholder="Descreva sua experiência e o que você oferece" Text="{Binding Descricao}"
+                    AutoSize="TextChanges" MaxLength="2000" />
+            <Entry Placeholder="Preço base por hora (R$)" Keyboard="Numeric" Text="{Binding PrecoBaseHora}" />
+            <Entry Placeholder="Cidade" Text="{Binding Cidade}" MaxLength="120" />
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                <Label Text="{Binding LocalizacaoTexto}" Style="{StaticResource Suave}" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Usar minha localização" Style="{StaticResource BotaoSecundario}"
+                        Command="{Binding UsarMinhaLocalizacaoCommand}" />
+            </Grid>
+
+            <Label Text="Horários de atendimento" Style="{StaticResource Subtitulo}" Margin="0,8,0,0" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Dias}" Spacing="4">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="8">
+                            <Switch IsToggled="{Binding Ativo}" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="{Binding Nome}" VerticalOptions="Center" />
+                            <TimePicker Grid.Column="2" Time="{Binding Inicio}" Format="HH:mm"
+                                        IsEnabled="{Binding Ativo}" />
+                            <Label Grid.Column="3" Text="às" VerticalOptions="Center" />
+                            <TimePicker Grid.Column="4" Time="{Binding Fim}" Format="HH:mm"
+                                        IsEnabled="{Binding Ativo}" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button Text="Salvar perfil" Command="{Binding SalvarCommand}" />
+
+            <Label Text="Serviços e preços" Style="{StaticResource Subtitulo}" Margin="0,8,0,0" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Servicos}" Spacing="8"
+                                 BindableLayout.EmptyView="Nenhum serviço cadastrado.">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Cartao}">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
+                                <Label Text="{Binding Nome}" FontAttributes="Bold" />
+                                <HorizontalStackLayout Grid.Row="1" Spacing="10">
+                                    <Label Text="{Binding Preco, StringFormat='R$ {0:N2}'}" />
+                                    <Label Text="{Binding DuracaoMinutos, StringFormat='{0} min'}"
+                                           Style="{StaticResource Suave}" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Button Grid.Column="1" Grid.RowSpan="2" Text="Remover"
+                                        Style="{StaticResource BotaoSecundario}" VerticalOptions="Center"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PerfilProfissionalViewModel}}, Path=RemoverServicoCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+            <Button Text="Adicionar serviço" Style="{StaticResource BotaoSecundario}"
+                    Command="{Binding AdicionarServicoCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

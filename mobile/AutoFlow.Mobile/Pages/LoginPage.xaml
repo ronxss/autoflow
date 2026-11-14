@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AutoFlow.Mobile.Pages.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="32,64,32,32" Spacing="18">
+            <Label Text="AutoFlow" FontSize="34" FontAttributes="Bold" TextColor="{StaticResource Primaria}" />
+            <Label Text="Encontre profissionais de confiança ou ofereça os seus serviços." FontSize="16" />
+
+            <Label Text="Como você quer usar o app?" Style="{StaticResource Subtitulo}" Margin="0,16,0,0" />
+            <RadioButton Content="Quero contratar serviços" GroupName="tipo" IsChecked="True" />
+            <RadioButton Content="Quero oferecer meus serviços" GroupName="tipo" IsChecked="{Binding SouProfissional}" />
+            <Label Text="A escolha vale para o primeiro acesso; depois, a conta mantém o tipo com que foi criada."
+                   Style="{StaticResource Suave}" />
+
+            <Button Text="Entrar com Google" Command="{Binding EntrarComGoogleCommand}" Margin="0,8,0,0" />
+            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" />
+
+            <!-- Visível apenas em compilações Debug, para testar com os usuários de demonstração. -->
+            <VerticalStackLayout Spacing="10" Margin="0,24,0,0" IsVisible="{Binding MostrarLoginComSenha}">
+                <Label Text="Ambiente de desenvolvimento" Style="{StaticResource Suave}" />
+                <Entry Placeholder="E-mail" Keyboard="Email" Text="{Binding Email}" />
+                <Entry Placeholder="Senha" IsPassword="True" Text="{Binding Senha}" />
+                <Button Text="Entrar com e-mail e senha" Style="{StaticResource BotaoSecundario}"
+                        Command="{Binding EntrarComSenhaCommand}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

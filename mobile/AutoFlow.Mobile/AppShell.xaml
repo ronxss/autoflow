@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:AutoFlow.Mobile.Pages"
+       x:Class="AutoFlow.Mobile.AppShell"
+       FlyoutBehavior="Disabled"
+       Title="AutoFlow">
+
+    <!-- Abertura: verifica a sessão e pede PIN/biometria do aparelho. -->
+    <ShellContent Route="inicio" ContentTemplate="{DataTemplate pages:InicioPage}" />
+
+    <ShellContent Route="login" ContentTemplate="{DataTemplate pages:LoginPage}" />
+
+    <TabBar Route="cliente">
+        <ShellContent Title="Buscar" Icon="aba_buscar.png" Route="buscar"
+                      ContentTemplate="{DataTemplate pages:BuscaPage}" />
+        <ShellContent Title="Pedidos" Icon="aba_pedidos.png" Route="pedidos-cliente"
+                      ContentTemplate="{DataTemplate pages:SolicitacoesPage}" />
+        <ShellContent Title="Conta" Icon="aba_conta.png" Route="conta-cliente"
+                      ContentTemplate="{DataTemplate pages:ContaPage}" />
+    </TabBar>
+
+    <TabBar Route="trabalhador">
+        <ShellContent Title="Pedidos" Icon="aba_pedidos.png" Route="pedidos-trabalhador"
+                      ContentTemplate="{DataTemplate pages:SolicitacoesPage}" />
+        <ShellContent Title="Meu perfil" Icon="aba_perfil.png" Route="perfil-profissional"
+                      ContentTemplate="{DataTemplate pages:PerfilProfissionalPage}" />
+        <ShellContent Title="Conta" Icon="aba_conta.png" Route="conta-trabalhador"
+                      ContentTemplate="{DataTemplate pages:ContaPage}" />
+    </TabBar>
+
+</Shell>
