@@ -22,6 +22,21 @@ jobs:
         run: dotnet build backend/AutoFlow.slnx -c Release
       - name: Testes unitários e de integração
         run: dotnet test backend/AutoFlow.slnx -c Release --no-build
+      - name: Teste de fumaça (a API sobe e gera o OpenAPI)
+        working-directory: backend/src/AutoFlow.Api/bin/Release/net10.0
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ASPNETCORE_URLS: http://localhost:5080
+          Banco__InicializarAoSubir: "false"
+        run: |
+          dotnet AutoFlow.Api.dll &
+          for tentativa in $(seq 1 30); do
+            if curl -fsS http://localhost:5080/health > /dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          curl -fsS http://localhost:5080/health
+          curl -fsS -o openapi.json http://localhost:5080/openapi/v1.json
+          grep -q '/api/auth/login' openapi.json
 
   admin:
     name: Painel (React) — build

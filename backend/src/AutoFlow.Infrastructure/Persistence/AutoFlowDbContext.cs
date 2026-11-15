@@ -27,7 +27,7 @@ public class AutoFlowDbContext(DbContextOptions<AutoFlowDbContext> options, ICri
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Campos sensíveis são cifrados com AES-256 no código antes de chegar ao banco.
-        var protegido = new ValueConverter<string, string>(
+        ValueConverter protegido = new ValueConverter<string, string>(
             texto => criptografia.Criptografar(texto),
             cifrado => criptografia.Descriptografar(cifrado));
 
